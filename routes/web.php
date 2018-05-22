@@ -18,9 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/oglasi', 'PagesController@ads')->name('ads');
 
 Route::post('company', 'CompanyController@store')->name('company.store');
 Route::get('company/create', 'CompanyController@create')->name('company.create');
 
 Route::post('ad', 'AdController@store')->name('ad.store');
 Route::get('ad/create', 'AdController@create')->name('ad.create');
+
+Route::group(['middleware' => 'role:admin'], function () {
+    Route::post('/packet/create', 'PacketController@store')->name('packet.store');
+    Route::get('/packet', 'PacketController@create')->name('packet.create');
+});
