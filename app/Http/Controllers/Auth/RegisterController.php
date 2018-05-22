@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 'confirmed',
-                'regex:/​^(?=[a-zA-z])(?=\S*[a-z]{4,})(?=\S*[A-Z])(?=\S*[\d]{2,})(?!.*(.)\1{1})[0-9A-Za-z]{8,12}$/',
+                'regex:/^(?=[a-zA-z])(?=\S*[a-z]{4,})(?=\S*[A-Z])(?=\S*[\d]{2,})(?!.*(.)\1{1})[0-9A-Za-z]{8,12}$/'
             ]
         ]);
     }
