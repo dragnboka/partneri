@@ -59,9 +59,10 @@ class CompanyController extends Controller
 
         $company->contact()->save($contact);
 
+        $company->users()->attach($request->user());
+
         return back();
-       
-           
+         
     }
 
     /**
