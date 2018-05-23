@@ -9,23 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 class Lecture extends Model
 {
     protected $dates = [
-        // 'vreme',
-        //'date',
+        // 'time',
+        'date',
     ];
 
-    public function day($date)
+    public function getFullNameAttribute()
     {
-        return Carbon::createFromFormat('Y-m-d', $date)->format('j'); 
-    }
-
-    public function month($date)
-    {
-        return Carbon::createFromFormat('Y-m-d', $date)->format('M'); 
+        return $this->first_name . ' ' . $this->last_name;
     }
     
-    public function view($vreme)
+    public function time($vreme)
     {    
-        return \Carbon\Carbon::createFromTimeString($vreme)->format('H:i'); 
+        return Carbon::createFromTimeString($vreme)->format('H:i'); 
         //return DateTime::createFromFormat('H:i:s', $vreme)->format('H:i');  
     }
    

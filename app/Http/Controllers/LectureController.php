@@ -70,7 +70,7 @@ class LectureController extends Controller
      */
     public function show(Lecture $lecture)
     {
-        //
+        return view('lectures.show', compact('lecture'));
     }
 
     /**

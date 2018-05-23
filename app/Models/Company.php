@@ -12,6 +12,11 @@ class Company extends Model
         return $this->hasOne(CompanyContact::class);
     }
 
+    public function moneyContract()
+    {
+        return $this->hasOne(MoneyContract::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

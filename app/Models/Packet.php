@@ -18,4 +18,9 @@ class Packet extends Model
     {
         return $this->hasMany(PacketItem::class);
     }
+
+    public function moneyContracts()
+    {
+        return $this->hasMany(MoneyContract::class);
+    }
 }
