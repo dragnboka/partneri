@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{Ad, Packet};
 use Illuminate\Http\Request;
-use App\Models\Ad;
+use App\Filters\Packet\SubjectFilters;
 
 class PagesController extends Controller
 {
@@ -17,6 +18,15 @@ class PagesController extends Controller
         $ads = Ad::with('company')->latest()->paginate(20);
         
         return view('pages.ads', compact('ads'));
+    }
+
+    public function packet(Request $request)
+    {
+        $mappings = SubjectFilters::mappings();
+
+        $packets = Packet::filter($request)->with('items')->get();
+        
+        return view('pages.packets', compact('packets','mappings'));
     }
 
    

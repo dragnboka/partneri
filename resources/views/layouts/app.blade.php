@@ -34,7 +34,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ route('ads') }}">{{ __('oglasi') }}</a></li>
+                        <li><a class="nav-link" href="{{ route('packet.item') }}">{{ __('Paketi') }}</a></li>
+                        <li><a class="nav-link" href="{{ route('ads') }}">{{ __('Oglasi') }}</a></li> 
+                        <li><a class="nav-link" href="{{ route('lecture.index') }}">{{ __('Predavanja') }}</a></li>   
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -44,6 +46,9 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
+                            @role('admin')
+                            <li><a class="nav-link" href="{{ route('home') }}">{{ __('home') }}</a></li>
+                            @endrole
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }} <span class="caret"></span>
@@ -55,7 +60,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
+                            
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

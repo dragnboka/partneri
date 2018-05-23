@@ -10565,3 +10565,111 @@ a.text-dark:focus {
   transition-timing-function: ease-out;
 }
 
+.strana-body > ul:not([class]) {
+  padding-left: 0;
+  list-style: none;
+}
+
+.strana-body p + ul {
+  margin-top: 15px;
+}
+
+.strana-body > ul:not([class]) > li:first-child {
+  padding-top: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.strana-body > ul:not([class]) > li {
+  counter-increment: li;
+  margin-bottom: 5px;
+  padding: 0 0 5px 25px;
+  padding-top: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.strana-body > ul:not([class]) > li::before {
+  content: '*';
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin-left: -15px;
+  margin-right: 10px;
+  font-weight: 300;
+  -webkit-transform: scale(2);
+  transform: scale(2);
+}
+
+.najava-naslovna,
+.najava-arhiva {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 0 1rem 0;
+  padding: 0 0 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.najava-naslovna > .najava-index-levo {
+  margin-right: 1rem;
+}
+
+.najava-datum-dan {
+  padding-top: .75rem;
+  font-size: 1.5rem;
+  border-width: 1px 1px 0 1px;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.najava-datum-dan,
+.najava-datum-mesec {
+  line-height: 1;
+  color: #fff;
+  background: #5B99D4;
+}
+
+.najava-datum-dan,
+.najava-datum-mesec,
+.najava-datum-vreme {
+  display: block;
+  min-width: 3.5rem;
+  text-align: center;
+}
+
+.najava-datum-mesec {
+  padding: .25rem 0 .75rem;
+  font-size: .8275rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  border: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.najava-datum-vreme {
+  margin-top: .25rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  font-size: .825rem;
+  font-weight: 300;
+  line-height: 1;
+  background: #f8f9fa;
+  border-top: 0;
+  border-radius: 0.25rem;
+}
+
+.najava-datum-vreme::before {
+  padding-right: 0.125rem;
+  opacity: .5;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 14px;
+  font-size: inherit;
+  text-rendering: auto;
+}
+
+.fa-clock-o::before,
+.najava-datum-vreme::before {
+  content: "\F017";
+}
+

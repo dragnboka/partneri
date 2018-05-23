@@ -17,6 +17,8 @@
     </div>
         <a href="{{ route('ad.create') }}" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Create ad</span></a>
 
+        <a href="{{ route('lecture.create') }}" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Create Lecture</span></a>
+
         @role('admin')
         <a href="{{ route('packet.create') }}" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-gear"></i> <span class="d-none d-md-inline">Create Packet</span></a>
         @endrole

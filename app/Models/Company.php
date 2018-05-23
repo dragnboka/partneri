@@ -21,4 +21,9 @@ class Company extends Model
     {
         return $this->hasMany(Ad::class);
     }
+
+    public function lectures()
+    {
+        return $this->hasMany(Lecture::class);
+    }
 }
