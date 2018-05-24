@@ -13,9 +13,8 @@ class CreatePacketItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('packet_items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('packet_id');
             $table->text('description');
             $table->timestamps();
         });

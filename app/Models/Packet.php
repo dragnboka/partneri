@@ -16,7 +16,7 @@ class Packet extends Model
 
     public function items()
     {
-        return $this->hasMany(PacketItem::class);
+        return $this->belongsToMany(Item::class, 'packet_item');
     }
 
     public function moneyContracts()
