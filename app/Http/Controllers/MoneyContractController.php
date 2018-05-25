@@ -47,8 +47,8 @@ class MoneyContractController extends Controller
         $contract = new MoneyContract;
         $contract->start_of_contract = $request->start_of_contract;
         switch ($packet->name) {
-            case 'zlatni':
-            case 'srebrni':
+            case 'Златни партнер':
+            case 'Сребрни партнер':
                 $contract->end_of_contract = Carbon::createFromFormat('Y-m-d', $request->start_of_contract)->addMonths(24);
                 break;
             default:

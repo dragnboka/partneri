@@ -26,13 +26,18 @@
                 <p>{{$lecture->description}}</p>
             </div>
 
+            @if ($lecture->cv)
             <div>
                 <h3>Biografija predavaca</h3>
                 <p>
+                    @if ($lecture->picture)
                     <img class="float-left p-2" src="{{$lecture->picture}}" alt="slika">
+                    @endif
                     {{$lecture->cv}}
                 </p>
-            </div>
+            </div> 
+            @endif
+            
         </article>
       
     </div>

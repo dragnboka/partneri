@@ -6,15 +6,37 @@
         <div class="card-header">Dashboard</div>
 
         <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <h2>пет компанија са најскорије потписаним уговорима </h2>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>City</th>
+                </tr>
+                @foreach ($companies as $company)
+                    <tr class="{{$company->user_id == auth()->user()->id ? 'bg-danger' : ''}}">
+                        <td>{{$company->name}}</td>
+                        <td>{{$company->country}}</td>
+                        <td>{{$company->city}}</td>
+                    </tr>
+                @endforeach
+            </table>
 
-            @role('admin')
-            You are logged in!
-            @endrole
+            <h2>пет компанија којима у наредном периоду истичу уговори</h2>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>City</th>
+                </tr>
+                @foreach ($companiesExpiring as $company)
+                    <tr class="{{$company->user_id == auth()->user()->id ? 'bg-danger' : ''}}">
+                        <td>{{$company->name}}</td>
+                        <td>{{$company->country}}</td>
+                        <td>{{$company->city}}</td>
+                    </tr>
+                @endforeach
+            </table>
         </div>
     </div>
 @endsection

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-10 mx-auto">
             <div class="card">
-                <div class="card-header">{{ __('Kreiraj Predavanje') }}</div>
+                <div class="card-header">{{ __('Kreiraj Ugovor') }}</div>
         
                 <div class="card-body">
                     <form method="POST" action="{{ route('contract.money.store') }}">

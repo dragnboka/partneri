@@ -22,6 +22,8 @@ Route::get('/oglasi', 'PagesController@ads')->name('ads');
 Route::get('/paketi', 'PagesController@packet')->name('packet.item');
 
 
+Route::get('companies', 'CompanyController@index')->name('company.index');
+Route::get('companies/{company}', 'CompanyController@show')->name('company.show');
 Route::post('company', 'CompanyController@store')->name('company.store');
 Route::get('company/create', 'CompanyController@create')->name('company.create');
 

@@ -12,7 +12,7 @@
                     <a href="#" class="list-group-item" data-parent="#menu1sub1sub1">Subitem c.2</a>
                 </div>
             </div> --}}
-        
+            <a href=" {{ route('company.index') }}" class="list-group-item">Sve Kompanije</a>
             <a href=" {{ route('company.create') }}" class="list-group-item">Create Company</a>
         </div>
         <a href="{{ route('ad.create') }}" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Create ad</span></a>

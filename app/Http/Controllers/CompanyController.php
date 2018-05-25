@@ -12,9 +12,29 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->has('query')) {
+            $query = $request->input('query');
+            if ($request->has('active')) {
+                $companies = Company::
+                whereHas('moneyContract', function ($query)
+                {
+                    $query->where('status', 6);
+                })
+                ->where('name', 'like',"%$query%")
+                ->paginate(5);
+            } else {
+                $companies = Company::has('moneyContract')
+                    ->where('name', 'like',"%$query%")
+                    ->paginate(5);
+            }
+                        
+        } else {
+            $companies = Company::has('moneyContract')->paginate(5);
+        }
+        
+        return view('company.index', compact('companies'));
     }
 
     /**
@@ -73,7 +93,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('company.show', compact('company'));
     }
 
     /**
