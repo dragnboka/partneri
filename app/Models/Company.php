@@ -20,9 +20,14 @@ class Company extends Model
         return $this->hasOne(CompanyContact::class);
     }
 
-    public function moneyContract()
+    public function moneyContracts()
     {
-        return $this->hasOne(MoneyContract::class);
+        return $this->belongsToMany(Packet::class, 'money_contract')->using(MoneyContract::class)->withPivot('start_of_contract', 'end_of_contract');
+    }
+
+    public function donatigContracts()
+    {
+        return $this->belongsToMany(Packet::class, 'donating_contract')->using(DonatingContract::class)->withPivot('start_of_contract', 'end_of_contract');
     }
 
     public function users()

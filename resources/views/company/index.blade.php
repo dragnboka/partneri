@@ -6,7 +6,12 @@
         <div class="col-sm-10 mx-auto">
             <form action="{{ route('company.index') }}" method="GET">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="query" value="{{request()->input('query')}}"> 
+                    <label for="name" class="col-form-label">{{ __('Ime kompanije') }}</label>
+                    <input type="text" id="name" class="form-control" name="name" value="{{request()->input('name')}}"> 
+                </div>
+                <div class="form-group">
+                    <label for="packet" class="col-form-label">{{ __('Paketi') }}</label>
+                    <input type="text" id="packet" class="form-control" name="packet" value="{{request()->input('packet')}}"> 
                 </div>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="active" name="active" value="1" {{request()->input('active') == "1" ? 'checked' : ''}}>

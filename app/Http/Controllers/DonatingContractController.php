@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\MoneyContract;
-use App\Models\{Packet, Company, ContractStatus};
+use App\Models\{Packet, Company, ContractStatus, DonatingContract};
 
-class MoneyContractController extends Controller
+class DonatingContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,12 +24,12 @@ class MoneyContractController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $packets = Packet::all();
         $companies = Company::all();
         $statuses = ContractStatus::all();
         
-        return view('contracts.money.create', compact('packets','companies','statuses'));
+        return view('contracts.donation.create', compact('packets','companies','statuses'));
     }
 
     /**
@@ -44,9 +43,12 @@ class MoneyContractController extends Controller
         $company = Company::findOrFail($request->company);
         $packet = Packet::findOrFail($request->packet);
             
-        $contract = new MoneyContract;
+        $contract = new DonatingContract;
+
         $contract->packet_id = $packet->id;
         $contract->company_id = $company->id;
+        $contract->description = $request->description;
+        $contract->amount = $request->amount;
         $contract->start_of_contract = $request->start_of_contract;
         switch ($packet->name) {
             case 'zlatni':
@@ -58,18 +60,10 @@ class MoneyContractController extends Controller
         }     
         $contract->status = $request->status;
         $contract->active = ($request->status == 6 ? true : false);
-        if ($request->has('facture_send')) {
-            $contract->facture_send = $request->facture_send;
-        }
-        if ($request->has('payment_done')) {
-            $contract->payment_done = $request->payment_done;
-        }
-        $contract->date_of_payment = $request->date_of_payment;
+     
+        $contract->date_of_delivery = $request->date_of_delivery;
         $contract->comment = $request->comment;    
 
-        //$contract->packet()->associate($packet);
-
-        //$company->moneyContract()->save($contract);
         $contract->save();
 
         return back();
@@ -78,10 +72,10 @@ class MoneyContractController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MoneyContract  $moneyContract
+     * @param  \App\Models\DonatingContract  $donatingContract
      * @return \Illuminate\Http\Response
      */
-    public function show(MoneyContract $moneyContract)
+    public function show(DonatingContract $donatingContract)
     {
         //
     }
@@ -89,10 +83,10 @@ class MoneyContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MoneyContract  $moneyContract
+     * @param  \App\Models\DonatingContract  $donatingContract
      * @return \Illuminate\Http\Response
      */
-    public function edit(MoneyContract $moneyContract)
+    public function edit(DonatingContract $donatingContract)
     {
         //
     }
@@ -101,10 +95,10 @@ class MoneyContractController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MoneyContract  $moneyContract
+     * @param  \App\Models\DonatingContract  $donatingContract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MoneyContract $moneyContract)
+    public function update(Request $request, DonatingContract $donatingContract)
     {
         //
     }
@@ -112,10 +106,10 @@ class MoneyContractController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MoneyContract  $moneyContract
+     * @param  \App\Models\DonatingContract  $donatingContract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MoneyContract $moneyContract)
+    public function destroy(DonatingContract $donatingContract)
     {
         //
     }

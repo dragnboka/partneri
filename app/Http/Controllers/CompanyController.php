@@ -14,24 +14,86 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('query')) {
-            $query = $request->input('query');
+        if (!empty($request->input('name')) && !empty($request->input('packet'))) {
+            $name = $request->input('name');
+            $packet = $request->input('packet');
             if ($request->has('active')) {
                 $companies = Company::
-                whereHas('moneyContract', function ($query)
+                whereHas('moneyContracts', function ($query) use ($packet)
                 {
-                    $query->where('status', 6);
+                    $query->where('active', 1)->where('name', 'like',"%$packet%");
                 })
-                ->where('name', 'like',"%$query%")
+                ->where('name', 'like',"%$name%")
+                ->orWhereHas('donatigContracts', function ($query) use ($packet)
+                {
+                    $query->where('active', 1)->where('name', 'like',"%$packet%");
+                })
+                ->where('name', 'like',"%$name%")
                 ->paginate(5);
             } else {
-                $companies = Company::has('moneyContract')
-                    ->where('name', 'like',"%$query%")
-                    ->paginate(5);
+                $companies = Company::
+                whereHas('moneyContracts', function ($query) use ($packet)
+                {
+                    $query->where('name', 'like',"%$packet%");
+                })
+                ->where('name', 'like',"%$name%")
+                ->orWhereHas('donatigContracts', function ($query) use ($packet)
+                {
+                    $query->where('name', 'like',"%$packet%");
+                })
+                ->where('name', 'like',"%$name%")
+                ->paginate(5);
             }
                         
-        } else {
-            $companies = Company::has('moneyContract')->paginate(5);
+        } elseif (!empty($request->input('name'))) {
+            $name = $request->input('name');
+            if ($request->has('active')) {
+                $companies = Company::
+                whereHas('moneyContracts', function ($query)
+                {
+                    $query->where('active', 1);
+                })
+                ->where('name', 'like',"%$name%")
+                ->orWhereHas('donatigContracts', function ($query)
+                {
+                    $query->where('active', 1);
+                })
+                ->where('name', 'like',"%$name%")
+                ->paginate(5);
+            } else {
+                $companies = Company::has('moneyContracts')->where('name', 'like',"%$name%")->orHas('donatigContracts')
+                ->where('name', 'like',"%$name%")
+                ->paginate(5);
+            }
+        }
+        elseif (!empty($request->input('packet'))) {
+            $packet = $request->input('packet');
+            if ($request->has('active')) {
+                $companies = Company::
+                whereHas('moneyContracts', function ($query) use ($packet)
+                {
+                    $query->where('active', 1)->where('name', 'like',"%$packet%");
+                })
+                ->orWhereHas('donatigContracts', function ($query) use ($packet)
+                {
+                    $query->where('active', 1)->where('name', 'like',"%$packet%");
+                })
+                ->paginate(5);
+            } else {
+                $companies = Company::
+                whereHas('moneyContracts', function ($query) use ($packet)
+                {
+                    $query->where('name', 'like',"%$packet%");
+                })
+                ->orWhereHas('donatigContracts', function ($query) use ($packet)
+                {
+                    $query->where('name', 'like',"%$packet%");
+                })
+                ->paginate(5);
+            }
+        }
+        else {
+            $companies = Company::has('moneyContracts')->orHas('donatigContracts')->paginate(5);
         }
         
         return view('company.index', compact('companies'));
@@ -93,6 +155,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
+        $company = $company->where('id', $company->id)->with(['moneyContracts','donatigContracts'])->firstOrFail();
+        //dd($company);
         return view('company.show', compact('company'));
     }
 

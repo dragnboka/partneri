@@ -21,6 +21,16 @@ class Packet extends Model
 
     public function moneyContracts()
     {
-        return $this->hasMany(MoneyContract::class);
+        return $this->belongsToMany(Company::class, 'money_contract')->using(MoneyContract::class);
     }
+
+    public function donatigContracts()
+    {
+        return $this->belongsToMany(Company::class, 'donating_contract')->using(DonatingContract::class);
+    }
+
+    // public function moneyContracts()
+    // {
+    //     return $this->hasMany(MoneyContract::class);
+    // }
 }

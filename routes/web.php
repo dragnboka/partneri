@@ -41,4 +41,7 @@ Route::group(['middleware' => 'role:admin'], function () {
 
     Route::get('/contract/money/create', 'MoneyContractController@create')->name('contract.money.create');
     Route::post('/contract/money', 'MoneyContractController@store')->name('contract.money.store');
+
+    Route::get('/contract/donation/create', 'DonatingContractController@create')->name('contract.donation.create');
+    Route::post('/contract/donation', 'DonatingContractController@store')->name('contract.donation.store');
 });

@@ -1,5 +1,6 @@
 <div class="col-md-3 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
     <div class="list-group border-0 card text-center text-md-left">
+        <a href="{{ route('home') }}" class="list-group-item d-inline-block collapsed"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Home</span></a>
         <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Company</span> </a>
         <div class="collapse" id="menu1" data-parent="#sidebar">
             {{-- <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1 </a>
@@ -37,6 +38,7 @@
             </div> --}}
         
             <a href=" {{ route('contract.money.create') }}" class="list-group-item">Create Money Contract</a>
+            <a href=" {{ route('contract.donation.create') }}" class="list-group-item">Create Donating Contract</a>
         </div>
     </div>
 </div>

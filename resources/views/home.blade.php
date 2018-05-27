@@ -5,6 +5,7 @@
     <div class="card">
         <div class="card-header">Dashboard</div>
 
+        @role('clan')
         <div class="card-body">
             <h2>пет компанија са најскорије потписаним уговорима </h2>
             <table class="table">
@@ -38,5 +39,38 @@
                 @endforeach
             </table>
         </div>
+        @endrole
+        <h2 class="my-4 p-2">Kompanije kojima istice ugovor u naredna 6 meseca</h2>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>City</th>
+            </tr>
+            @foreach ($inSixMonths as $company)
+                <tr>
+                    <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
+                    <td>{{$company->country}}</td>
+                    <td>{{$company->city}}</td>
+                </tr>
+            @endforeach
+        </table>
+
+        <h2 class="my-4 p-2">Kompanije kojima je istekao ugovor prethodnih 6 meseci</h2>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>City</th>
+            </tr>
+            @foreach ($expiredLastSixMonth as $company)
+                <tr>
+                    <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
+                    <td>{{$company->country}}</td>
+                    <td>{{$company->city}}</td>
+                </tr>
+            @endforeach
+        </table>
+        
     </div>
 @endsection
