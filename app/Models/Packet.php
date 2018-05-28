@@ -14,6 +14,15 @@ class Packet extends Model
         return (new SubjectFilters($request))->filter($builder);
     }
 
+    public function getAllAttribute()
+    {
+        $moneyContracts = $this->moneyContracts;
+        $donatigContracts = $this->donatigContracts;
+
+        // Merge collections and return single collection.
+       return $moneyContracts->merge($donatigContracts);
+    }
+
     public function items()
     {
         return $this->belongsToMany(Item::class, 'packet_item');
@@ -29,8 +38,4 @@ class Packet extends Model
         return $this->belongsToMany(Company::class, 'donating_contract')->using(DonatingContract::class);
     }
 
-    // public function moneyContracts()
-    // {
-    //     return $this->hasMany(MoneyContract::class);
-    // }
 }

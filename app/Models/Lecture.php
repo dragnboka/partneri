@@ -17,6 +17,20 @@ class Lecture extends Model
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function passed($date, $time)
+    {
+        $y =$date->format('Y');
+        $m =$date->format('m');
+        $d =$date->format('d');
+        $part = Carbon::createFromTimeString($time); 
+        $h = $part->format('H'); 
+        $i = $part->format('i'); 
+        $lectureTime = Carbon::create($y,$m,$d,$h,$i);
+    
+        return Carbon::now()->gte($lectureTime);
+
+    }
     
     public function time($vreme)
     {    

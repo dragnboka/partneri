@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@home')->name('main');
 
 Auth::routes();
 
@@ -34,6 +32,8 @@ Route::get('/predavanja', 'LectureController@index')->name('lecture.index');
 Route::get('/predavanja/{lecture}', 'LectureController@show')->name('lecture.show');
 Route::post('lecture', 'LectureController@store')->name('lecture.store');
 Route::get('lecture/create', 'LectureController@create')->name('lecture.create');
+
+Route::get('/prosla/predavanja', 'LectureArchiveController@index')->name('lecture.archives');
 
 Route::get('/email/expired/{company}', 'Emails\PacketExpiredController@store')->name('email.expired');
 Route::get('/email/expiring/{company}', 'Emails\PacketExpiringController@store')->name('email.expiring.in.two');

@@ -10673,3 +10673,56 @@ a.text-dark:focus {
   content: "\F017";
 }
 
+.veliki,
+.srebrni {
+  padding: 5px 15px;
+}
+
+.zlatni {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.zlatni a {
+  margin: 0 auto;
+}
+
+.zlatni img {
+  width: 500px;
+  height: 144px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.srebrni img {
+  width: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+
+.veliki img {
+  height: 44px;
+  width: 194px;
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+
+.partnerlogo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.partnerlogo .partner {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 33%;
+          flex: 1 0 33%;
+}
+

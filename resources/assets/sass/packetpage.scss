@@ -92,3 +92,40 @@
 .fa-clock-o::before, .najava-datum-vreme::before {
     content: "\f017";
 }
+.veliki, .srebrni {
+    padding: 5px 15px;
+}
+.zlatni {
+    display: flex;
+    flex-direction: column;
+    a {
+        margin: 0 auto;
+    }
+}
+.zlatni  img{
+    width: 500px;
+    height: 144px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.srebrni img {
+    width: 300px;
+    margin-left: 20px;
+    margin-right: 20px;
+    float: left;
+}
+
+.veliki img {
+    height: 44px;
+    width: 194px;
+    margin-left: 20px;
+    margin-right: 20px;
+    float: left;
+}
+.partnerlogo {
+    display: flex;
+    .partner {
+        flex: 1 0 33%
+    }
+    
+}

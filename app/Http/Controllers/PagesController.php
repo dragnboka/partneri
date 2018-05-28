@@ -29,7 +29,13 @@ class PagesController extends Controller
         return view('pages.packets', compact('packets','mappings'));
     }
 
-   
+    public function home()
+    {
+        $packets = Packet::with('moneyContracts', 'donatigContracts')->find([1,2,3,4,5]);
+        
+        return view('welcome', compact('packets'));
+    }
+
 
     
 }
