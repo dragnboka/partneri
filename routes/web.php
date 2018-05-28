@@ -35,6 +35,9 @@ Route::get('/predavanja/{lecture}', 'LectureController@show')->name('lecture.sho
 Route::post('lecture', 'LectureController@store')->name('lecture.store');
 Route::get('lecture/create', 'LectureController@create')->name('lecture.create');
 
+Route::get('/email/expired/{company}', 'Emails\PacketExpiredController@store')->name('email.expired');
+Route::get('/email/expiring/{company}', 'Emails\PacketExpiringController@store')->name('email.expiring.in.two');
+
 Route::group(['middleware' => 'role:admin'], function () {
     Route::post('/packet/create', 'PacketController@store')->name('packet.store');
     Route::get('/packet', 'PacketController@create')->name('packet.create');

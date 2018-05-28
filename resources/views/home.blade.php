@@ -46,12 +46,16 @@
                 <th>Name</th>
                 <th>Country</th>
                 <th>City</th>
+                <th>Email</th>
             </tr>
             @foreach ($inSixMonths as $company)
                 <tr>
                     <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
                     <td>{{$company->country}}</td>
                     <td>{{$company->city}}</td>
+                    @if (expiring_in_two_months($company->end_of_contract))
+                    <td><a class="btn btn-outline-primary" href="{{ route('email.expiring.in.two', $company->id) }}">Email</a></td>   
+                    @endif 
                 </tr>
             @endforeach
         </table>
@@ -62,12 +66,14 @@
                 <th>Name</th>
                 <th>Country</th>
                 <th>City</th>
+                <th>email</th>
             </tr>
             @foreach ($expiredLastSixMonth as $company)
                 <tr>
                     <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
                     <td>{{$company->country}}</td>
                     <td>{{$company->city}}</td>
+                    <td><a class="btn btn-outline-primary" href="{{ route('email.expired', $company->id) }}">Email</a></td>
                 </tr>
             @endforeach
         </table>
