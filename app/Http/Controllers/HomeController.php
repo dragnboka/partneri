@@ -81,7 +81,7 @@ class HomeController extends Controller
             ->whereRaw('donating_contract.end_of_contract BETWEEN  DATE_SUB(now(), INTERVAL 6 MONTH)  AND now()')
             ->take(20)
             ->get();
-            
+           
         return view('home', compact('companies','companiesExpiring','inSixMonths','expiredLastSixMonth'));
     }
 }

@@ -155,7 +155,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        $company = $company->where('id', $company->id)->with(['moneyContracts','donatigContracts'])->firstOrFail();
+        $company = $company->where('id', $company->id)->with(['moneyContracts','donatigContracts','contact'])->firstOrFail();
         //dd($company);
         return view('company.show', compact('company'));
     }
@@ -168,7 +168,9 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        $company = $company->load('contact');
+    
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -180,7 +182,29 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $company = Company::findOrFail($company->id);
+    
+        $company->name = $request->name;
+        $company->address = $request->address;
+        $company->city = $request->city;
+        $company->postal_code = $request->postal_code;
+        $company->country = $request->country;
+        $company->bank_account = $request->bank_account;
+        $company->pib = $request->pib;
+        $company->phone = $request->phone;
+        $company->email = $request->email;
+        //$company->logo = $request->logo;
+
+        $company->save();
+        
+        $company->contact()->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->contact_phone,
+            'email' => $request->contact_email
+        ]);
+
+        return back();
     }
 
     /**

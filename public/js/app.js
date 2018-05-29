@@ -13891,7 +13891,7 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('timeline', __webpack_require__(39));
 
 var app = new Vue({
   el: '#app'
@@ -47175,7 +47175,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\ExampleComponent.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Timeline.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47184,9 +47184,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0ca92eac", Component.options)
+    hotAPI.createRecord("data-v-4c12f238", Component.options)
   } else {
-    hotAPI.reload("data-v-0ca92eac", Component.options)
+    hotAPI.reload("data-v-4c12f238", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47315,22 +47315,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            data: []
+        };
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        var _this = this;
+
+        axios.get('/api').then(function (result) {
+            _this.data = result.data;
+            _this.show(_this.data);
+        });
+    },
+
+    methods: {
+        show: function show(data) {
+            var container = this.$refs.p;
+
+            var dateObj = new Date();
+            var now = Date.now();
+            var six = dateObj.setMonth(dateObj.getMonth() + 6);
+
+            var set = data.map(function (d) {
+                return { id: d.id, content: d.name, start: d.end_of_contract };
+            });
+
+            // Create a DataSet (allows two way data-binding)
+            var items = new vis.DataSet(set);
+
+            // Configuration for the Timeline
+            var options = {
+                max: six,
+                min: now,
+                zoomMax: 15552000000,
+                zoomMin: 604800000,
+                template: function template(item, element, data) {
+                    return '<a href="/companies/' + item.id + '">  ' + item.content + ' </p>';
+                }
+
+            };
+
+            // Create a Timeline
+            var timeline = new vis.Timeline(container, items, options);
+        }
     }
 });
 
@@ -47342,38 +47372,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { ref: "p", attrs: { id: "visualization" } })
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0ca92eac", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4c12f238", module.exports)
   }
 }
 

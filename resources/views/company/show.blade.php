@@ -3,8 +3,8 @@
 @section('content')
     <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
     <div class="row">
-        <div class="col-sm-10 mx-auto">
-            <table class="table">
+        <div class="col-sm-11">
+            <table class="table table-striped table-bordered table-hover">
                <tr>
                    <th>Ime Kompanije</th>
                    <td>{{$company->name}}</td>
@@ -41,6 +41,22 @@
                     <th>Broj racuna Kompanije</th>
                     <td>{{$company->bank_account}}</td>
                 </tr>
+                <tr>
+                    <th>Ime Kontakt Osobe</th>
+                    <td>{{$company->contact->first_name}}</td>
+                </tr>
+                <tr>
+                    <th>Prezime Kontakt Osobe</th>
+                    <td>{{$company->contact->last_name}}</td>
+                </tr>
+                <tr>
+                    <th>Email Kontakt Osobe</th>
+                    <td>{{$company->contact->email}}</td>
+                </tr>
+                <tr>
+                    <th>Telefon Kontakt Osobe</th>
+                    <td>{{$company->contact->phone}}</td>
+                </tr>
             </table>
 
             <table class="table">
@@ -74,6 +90,9 @@
                 
             </table>
             
+        </div>
+        <div class="col-sm-1"> 
+            <a class="btn btn-outline-primary" href="{{ route('company.edit', $company) }}">Edit</a>
         </div>
     </div>
     

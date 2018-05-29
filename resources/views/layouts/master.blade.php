@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -20,11 +21,18 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
 </head>
 <body>
     <div id="app">
-        @include('layouts.partials._nav')
-
+        <header id="header">
+            <div class="container">
+                <h2 class="text-white">Elektrotehnicki fakultet</h2>
+                <p class="text-white">Univerzitet u beogradu</p>
+            </div>
+            @include('layouts.partials._nav')
+        </header>
+        
         <div class="container-fluid">
             <div class="row d-flex d-md-block flex-nowrap wrapper clearfix">
                 @include('layouts.partials._alerts')

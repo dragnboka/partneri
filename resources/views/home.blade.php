@@ -41,7 +41,10 @@
         </div>
         @endrole
         <h2 class="my-4 p-2">Kompanije kojima istice ugovor u naredna 6 meseca</h2>
-        <table class="table">
+        
+        <timeline></timeline>
+
+        <table class="table my-2">
             <tr>
                 <th>Name</th>
                 <th>Country</th>
@@ -77,6 +80,5 @@
                 </tr>
             @endforeach
         </table>
-        
     </div>
 @endsection

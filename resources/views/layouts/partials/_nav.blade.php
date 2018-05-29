@@ -10,8 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                <li><a class="nav-link" href="{{ route('main') }}">{{ __('Home') }}</a></li>
                 <li><a class="nav-link" href="{{ route('packet.item') }}">{{ __('Paketi') }}</a></li>
-                <li><a class="nav-link" href="{{ route('ads') }}">{{ __('oglasi') }}</a></li>
+                <li><a class="nav-link" href="{{ route('ads') }}">{{ __('Oglasi') }}</a></li> 
+                <li><a class="nav-link" href="{{ route('lecture.index') }}">{{ __('Predavanja') }}</a></li>  
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -27,7 +27,9 @@ class MoneyContractController extends Controller
     public function create()
     {   
         $packets = Packet::all();
-        $companies = Company::all();
+        $companies = Company::doesntHave('moneyContracts')->orWhereHas('moneyContracts', function ($query) {
+            $query->where('active', 0);
+        })->get();
         $statuses = ContractStatus::all();
         
         return view('contracts.money.create', compact('packets','companies','statuses'));
@@ -43,6 +45,9 @@ class MoneyContractController extends Controller
     {
         $company = Company::findOrFail($request->company);
         $packet = Packet::findOrFail($request->packet);
+        if($packet->all->count() >= $packet->number_of_partners){
+            return back()->with('danger', 'Ne moze taj paket');
+        }
             
         $contract = new MoneyContract;
         $contract->packet_id = $packet->id;

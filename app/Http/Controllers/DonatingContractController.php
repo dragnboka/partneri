@@ -42,6 +42,10 @@ class DonatingContractController extends Controller
     {
         $company = Company::findOrFail($request->company);
         $packet = Packet::findOrFail($request->packet);
+
+        if($packet->all->count() >= $packet->number_of_partners){
+            return back()->with('danger', 'Ne moze taj paket');
+        }
             
         $contract = new DonatingContract;
 
