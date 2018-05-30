@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
 use App\User;
+use App\Mail\UserCreated;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('active', 1)->get();
+        $users = User::where('active', 1)->paginate(20);
 
         return view('users.index', compact('users'));
     }
@@ -54,10 +57,28 @@ class UserController extends Controller
             'password' => bcrypt($request['password']),
             'active' => true,
         ]);
-
+        
         $user->roles()->attach($request->roles);  
+
+        Mail::to($user->email)->send(new UserCreated($request['password'],$request['username']));
 
         return back()->with('success', "Korisnik $user->username upravo je registrovan");
         
+    }
+
+    public function show(User $user)
+    {
+        $user = $user->where('id', $user->id)->has('roles')->firstOrFail();
+       
+        $roles = \DB::table('roles')->get();
+
+        return view('users.show', compact('user', 'roles'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->roles()->sync($request->roles);
+
+        return back()->with('success', "Korisniku $user->username je promenjena rola");
     }
 }

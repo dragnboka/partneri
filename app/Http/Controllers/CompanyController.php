@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Company, CompanyContact};
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCompany;
 
 class CompanyController extends Controller
 {
@@ -29,7 +30,7 @@ class CompanyController extends Controller
                     $query->where('active', 1)->where('name', 'like',"%$packet%");
                 })
                 ->where('name', 'like',"%$name%")
-                ->paginate(5);
+                ->paginate(20);
             } else {
                 $companies = Company::
                 whereHas('moneyContracts', function ($query) use ($packet)
@@ -42,7 +43,7 @@ class CompanyController extends Controller
                     $query->where('name', 'like',"%$packet%");
                 })
                 ->where('name', 'like',"%$name%")
-                ->paginate(5);
+                ->paginate(20);
             }
                         
         } elseif (!empty($request->input('name'))) {
@@ -59,11 +60,11 @@ class CompanyController extends Controller
                     $query->where('active', 1);
                 })
                 ->where('name', 'like',"%$name%")
-                ->paginate(5);
+                ->paginate(20);
             } else {
                 $companies = Company::has('moneyContracts')->where('name', 'like',"%$name%")->orHas('donatigContracts')
                 ->where('name', 'like',"%$name%")
-                ->paginate(5);
+                ->paginate(20);
             }
         }
         elseif (!empty($request->input('packet'))) {
@@ -78,7 +79,7 @@ class CompanyController extends Controller
                 {
                     $query->where('active', 1)->where('name', 'like',"%$packet%");
                 })
-                ->paginate(5);
+                ->paginate(20);
             } else {
                 $companies = Company::
                 whereHas('moneyContracts', function ($query) use ($packet)
@@ -89,11 +90,11 @@ class CompanyController extends Controller
                 {
                     $query->where('name', 'like',"%$packet%");
                 })
-                ->paginate(5);
+                ->paginate(20);
             }
         }
         else {
-            $companies = Company::has('moneyContracts')->orHas('donatigContracts')->paginate(5);
+            $companies = Company::has('moneyContracts')->orHas('donatigContracts')->paginate(20);
         }
         
         return view('company.index', compact('companies'));
@@ -115,7 +116,7 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCompany $request)
     {
         $company = new Company;
 

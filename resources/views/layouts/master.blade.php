@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column">
         <header id="header">
             <div class="container">
                 <h2 class="text-white">Elektrotehnicki fakultet</h2>
@@ -42,6 +42,8 @@
                 </main>
             </div>
         </div>
+
+        @include('layouts.partials._footer')
     </div>
 </body>
 </html>

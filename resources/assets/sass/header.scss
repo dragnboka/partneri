@@ -1,3 +1,6 @@
+#app {
+    height: 100vh;
+}
 #header {
     margin: 0;
     background: #884541 url(/img/header.jpg) center/cover;
@@ -14,4 +17,10 @@
     color: white;
     font-size: 20px
 }
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #eeb85a;
+    text-decoration: none;
+    text-shadow: none;
+}
+
     

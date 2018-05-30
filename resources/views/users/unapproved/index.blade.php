@@ -15,12 +15,14 @@
                     </tr>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{$user->username}}</td>
+                            <td><a href="{{ route('user.unapproved.show', $user) }}">{{$user->username}}</a></td>
                             <td>{{$user->firstname}}</td>
                             <td>{{$user->lastname}}</td>
                         </tr>
                     @endforeach
                 </table>
+
+                {{ $users->links() }}
                 @else
                     <h2 class="my-2">Trenutno nema clanova koji cekaju odobrenje</h2>
                 @endif

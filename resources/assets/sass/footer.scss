@@ -1,0 +1,17 @@
+#footer {
+    text-align: center;
+    font-size: 12px;
+    background: #e1e5e9;
+}
+
+#footer .container, #footer #nav {
+    padding-bottom: 3rem;
+}
+
+#footer .container > p:first-child, #footer #nav > p:first-child {
+    padding-top: 3rem;
+}
+
+#footer .copyright {
+    color: #888;
+}

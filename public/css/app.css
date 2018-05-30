@@ -10726,6 +10726,10 @@ a.text-dark:focus {
           flex: 1 0 33%;
 }
 
+#app {
+  height: 100vh;
+}
+
 #header {
   margin: 0;
   background: #884541 url(/img/header.jpg) center/cover;
@@ -10749,5 +10753,31 @@ a.text-dark:focus {
 .navbar-light .navbar-nav .nav-link {
   color: white;
   font-size: 20px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #eeb85a;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+#footer {
+  text-align: center;
+  font-size: 12px;
+  background: #e1e5e9;
+}
+
+#footer .container,
+#footer #nav {
+  padding-bottom: 3rem;
+}
+
+#footer .container > p:first-child,
+#footer #nav > p:first-child {
+  padding-top: 3rem;
+}
+
+#footer .copyright {
+  color: #888;
 }
 

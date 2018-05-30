@@ -14,12 +14,14 @@
                     </tr>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{$user->username}}</td>
+                            <td><a href="{{ route('user.show', $user) }}">{{$user->username}}</a></td>
                             <td>{{$user->firstname}}</td>
                             <td>{{$user->lastname}}</td>
                         </tr>
                     @endforeach
                 </table>
+                
+                {{ $users->links() }}
             </div>
         </div>
     </div>

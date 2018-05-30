@@ -33,10 +33,18 @@ Route::get('/email/expiring/{company}', 'Emails\PacketExpiringController@store')
 
 Route::group(['middleware' => 'role:admin'], function () {
 
-    Route::get('/users', 'UserController@index')->name('user.index');
-    Route::get('/users/unapproved', 'UserController@unapproved')->name('user.unapproved');
-    Route::get('/user/create', 'UserController@create')->name('user.create');
-    Route::post('/user', 'UserController@store')->name('user.store');
+    Route::namespace('Users')->group(function () {
+        Route::get('/users', 'UserController@index')->name('user.index');
+        Route::post('/user', 'UserController@store')->name('user.store');
+        Route::get('/users/{user}', 'UserController@show')->name('user.show');
+        Route::put('/users/{user}', 'UserController@update')->name('user.update');
+        Route::get('/user/create', 'UserController@create')->name('user.create');
+        
+        Route::get('unapproved/users', 'UnapprovedController@index')->name('user.unapproved');
+        Route::get('unapproved/users/{user}', 'UnapprovedController@show')->name('user.unapproved.show');
+        Route::put('unapproved/users/{user}', 'UnapprovedController@update')->name('user.unapproved.update');
+        Route::delete('unapproved/users/{user}', 'UnapprovedController@destroy')->name('user.unapproved.destroy');
+    });
     
     Route::post('/packet/create', 'PacketController@store')->name('packet.store');
     Route::get('/packet', 'PacketController@create')->name('packet.create');
