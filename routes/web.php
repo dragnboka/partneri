@@ -32,6 +32,12 @@ Route::get('/email/expired/{company}', 'Emails\PacketExpiredController@store')->
 Route::get('/email/expiring/{company}', 'Emails\PacketExpiringController@store')->name('email.expiring.in.two');
 
 Route::group(['middleware' => 'role:admin'], function () {
+
+    Route::get('/users', 'UserController@index')->name('user.index');
+    Route::get('/users/unapproved', 'UserController@unapproved')->name('user.unapproved');
+    Route::get('/user/create', 'UserController@create')->name('user.create');
+    Route::post('/user', 'UserController@store')->name('user.store');
+    
     Route::post('/packet/create', 'PacketController@store')->name('packet.store');
     Route::get('/packet', 'PacketController@create')->name('packet.create');
 
