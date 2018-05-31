@@ -4,6 +4,7 @@
     <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
     <div class="row">
         <div class="col-sm-11">
+            <img class="w-25 mb-3 d-block mx-auto" src="/storage/{{$company->name}}/{{$company->logo}}" alt="logo kompanije">
             <table class="table table-striped table-bordered table-hover">
                <tr>
                    <th>Ime Kompanije</th>

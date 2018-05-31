@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Company, CompanyContact};
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCompany;
+use Illuminate\Support\Facades\Storage;
+use App\Models\{Company, CompanyContact};
 
 class CompanyController extends Controller
 {
@@ -117,9 +118,9 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCompany $request)
-    {
+    { 
         $company = new Company;
-
+        
         $company->name = $request->name;
         $company->address = $request->address;
         $company->city = $request->city;
@@ -129,10 +130,16 @@ class CompanyController extends Controller
         $company->pib = $request->pib;
         $company->phone = $request->phone;
         $company->email = $request->email;
-        $company->logo = $request->logo;
+        $company->logo = $request->logo->getClientOriginalName();
 
         $company->save();
         
+        $extension = $request->file('logo')->getClientOriginalExtension();
+        $name = pathinfo($request->file('logo')->getClientOriginalName(), PATHINFO_FILENAME);
+        Storage::disk('public')->putFileAs(
+            $company->name, $request->file('logo'), $name.'.'.$extension
+        );
+    
         $contact = new CompanyContact;
 
         $contact->first_name = $request->first_name;

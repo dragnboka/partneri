@@ -10726,8 +10726,13 @@ a.text-dark:focus {
           flex: 1 0 33%;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 #app {
-  height: 100vh;
+  height: 100%;
 }
 
 #header {
