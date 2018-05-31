@@ -11,19 +11,35 @@
                     <form method="POST" action="{{ route('contract.money.store') }}">
                         @csrf
 
-                        <select name="company" class="form-control mb-3">
-                            <option disabled selected>Select company</option>
-                            @foreach ($companies as $company)
-                                <option value="{{$company->id}}">{{$company->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <select name="company" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select company</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('company'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('company') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
-                        <select name="packet" class="form-control mb-3">
-                            <option disabled selected>Select packet</option>
-                            @foreach ($packets as $packet)
-                                <option value="{{$packet->id}}">{{$packet->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <select name="packet" class="form-control{{ $errors->has('packet') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select packet</option>
+                                @foreach ($packets as $packet)
+                                    <option value="{{$packet->id}}">{{$packet->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('packet'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('packet') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group">
                             <label for="start_of_contract" class="col-form-label">{{ __('Datum ugovora') }}</label>
@@ -36,12 +52,20 @@
                             @endif
                         </div>
 
-                        <select name="status" class="form-control mb-3">
-                            <option disabled selected>Status ugovora</option>
-                            @foreach ($statuses as $status)
-                                <option value="{{$status->id}}">{{$status->description}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <select name="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Status ugovora</option>
+                                @foreach ($statuses as $status)
+                                    <option value="{{$status->id}}">{{$status->description}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('status'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('status') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                         
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="facture_send" name="facture_send" value="1">
@@ -76,12 +100,8 @@
                             @endif
                         </div>
 
-                        
-
-                        
-  
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Kreiraj Predavanje') }}
+                            {{ __('Kreiraj novcani ugovor') }}
                         </button>
                            
                     </form>

@@ -7,7 +7,6 @@ Route::get('/', 'PagesController@home')->name('main');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/oglasi', 'PagesController@ads')->name('ads');
 Route::get('/paketi', 'PagesController@packet')->name('packet.item');
 
 
@@ -20,6 +19,8 @@ Route::get('company/create', 'CompanyController@create')->name('company.create')
 
 Route::post('ad', 'AdController@store')->name('ad.store');
 Route::get('ad/create', 'AdController@create')->name('ad.create');
+Route::get('/oglasi', 'AdController@index')->name('ads');
+Route::get('/oglasi/{ad}', 'AdController@show')->name('ad.show');
 
 Route::get('/predavanja', 'LectureController@index')->name('lecture.index');
 Route::get('/predavanja/{lecture}', 'LectureController@show')->name('lecture.show');

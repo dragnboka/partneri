@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Company, Lecture};
 use Illuminate\Http\Request;
+use App\Models\{Company, Lecture};
+use App\Http\Requests\StoreLecture;
+use Illuminate\Support\Facades\Storage;
 
 class LectureController extends Controller
 {
@@ -37,7 +39,7 @@ class LectureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLecture $request)
     {
         $company = Company::findOrFail($request->company);
 
@@ -51,11 +53,25 @@ class LectureController extends Controller
         $lecture->last_name = $request->last_name;
         $lecture->cv = $request->cv;
         if ($request->has('file') && !empty($request->file)) {
-            $lecture->file = $request->file;
+            $lecture->file = $request->file->getClientOriginalName();
         }
         if ($request->has('picture') && !empty($request->picture)) {
-            $lecture->picture = $request->picture;
+            $lecture->picture = $request->picture->getClientOriginalName();
         }
+
+        $extension = $request->file('file')->getClientOriginalExtension();
+        $name = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_FILENAME);
+            
+        Storage::disk('public')->putFileAs(
+            'lectures/'.$company->name.'/file', $request->file('file'), $name.'.'.$extension
+        );
+
+        $extension1 = $request->file('picture')->getClientOriginalExtension();
+        $name1 = pathinfo($request->file('picture')->getClientOriginalName(), PATHINFO_FILENAME);
+            
+        Storage::disk('public')->putFileAs(
+            'lectures/'.$company->name.'/picture', $request->file('picture'), $name1.'.'.$extension1
+        );
 
         $company->lectures()->save($lecture);
 
@@ -70,7 +86,7 @@ class LectureController extends Controller
      */
     public function show(Lecture $lecture)
     {
-        return view('lectures.show', compact('lecture'));
+        return view('lectures.show', ['lecture' => $lecture->load('company')] );
     }
 
     /**

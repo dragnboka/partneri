@@ -18,7 +18,7 @@
                     <div class="{{$packet->name}}logo">
                         @foreach ($packet->all as $company)
                         <div class="{{$packet->name}} clearfix">
-                            <a href=""><img src="{{$company->logo}}" alt="logo kompanije"></a>
+                            <a href=""><img src="/storage/{{$company->name}}/{{$company->logo}}" alt="logo kompanije"></a>
                             <p>{{$company->description}}</p>
                         </div>
                         @endforeach

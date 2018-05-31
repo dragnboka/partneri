@@ -16,7 +16,7 @@
                 </tr>
                 @foreach ($companies as $company)
                     <tr class="{{$company->user_id == auth()->user()->id ? 'bg-danger' : ''}}">
-                        <td>{{$company->name}}</td>
+                        <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
                         <td>{{$company->country}}</td>
                         <td>{{$company->city}}</td>
                     </tr>
@@ -32,7 +32,7 @@
                 </tr>
                 @foreach ($companiesExpiring as $company)
                     <tr class="{{$company->user_id == auth()->user()->id ? 'bg-danger' : ''}}">
-                        <td>{{$company->name}}</td>
+                        <td><a href="{{ route('company.show', $company->id) }}">{{$company->name}}</a></td>
                         <td>{{$company->country}}</td>
                         <td>{{$company->city}}</td>
                     </tr>
@@ -40,6 +40,8 @@
             </table>
         </div>
         @endrole
+
+        @role('it manager','admin')
         <h2 class="my-4 p-2">Kompanije kojima istice ugovor u naredna 6 meseca</h2>
         
         <timeline></timeline>
@@ -80,5 +82,6 @@
                 </tr>
             @endforeach
         </table>
+        @endrole
     </div>
 @endsection

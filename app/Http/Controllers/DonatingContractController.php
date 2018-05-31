@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDonatingContract;
 use App\Models\{Packet, Company, ContractStatus, DonatingContract};
 
 class DonatingContractController extends Controller
@@ -38,7 +39,7 @@ class DonatingContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDonatingContract $request)
     {
         $company = Company::findOrFail($request->company);
         $packet = Packet::findOrFail($request->packet);

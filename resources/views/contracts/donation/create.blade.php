@@ -10,20 +10,35 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('contract.donation.store') }}">
                         @csrf
+                        <div class="form-group">
+                            <select name="company" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select company</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('company'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('company') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
-                        <select name="company" class="form-control mb-3">
-                            <option disabled selected>Select company</option>
-                            @foreach ($companies as $company)
-                                <option value="{{$company->id}}">{{$company->name}}</option>
-                            @endforeach
-                        </select>
-
-                        <select name="packet" class="form-control mb-3">
-                            <option disabled selected>Select packet</option>
-                            @foreach ($packets as $packet)
-                                <option value="{{$packet->id}}">{{$packet->name}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <select name="packet" class="form-control{{ $errors->has('packet') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select packet</option>
+                                @foreach ($packets as $packet)
+                                    <option value="{{$packet->id}}">{{$packet->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('packet'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('packet') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group">
                             <label for="description" class="col-form-label">{{ __('Opis Doonacije') }}</label>
@@ -58,12 +73,20 @@
                             @endif
                         </div>
 
-                        <select name="status" class="form-control mb-3">
-                            <option disabled selected>Status ugovora</option>
-                            @foreach ($statuses as $status)
-                                <option value="{{$status->id}}">{{$status->description}}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+                            <select name="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Status ugovora</option>
+                                @foreach ($statuses as $status)
+                                    <option value="{{$status->id}}">{{$status->description}}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if ($errors->has('status'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('status') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                         
                         <div class="form-group">
                             <label for="date_of_delivery" class="col-form-label">{{ __('Datum iporuke donacije') }}</label>
@@ -88,7 +111,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Kreiraj Predavanje') }}
+                            {{ __('Kreiraj donatorski ugovor') }}
                         </button>
                            
                     </form>

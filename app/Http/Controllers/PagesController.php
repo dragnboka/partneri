@@ -8,18 +8,7 @@ use App\Filters\Packet\SubjectFilters;
 
 class PagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function ads()
-    {
-        $ads = Ad::with('company')->latest()->paginate(20);
-        
-        return view('pages.ads', compact('ads'));
-    }
-
+    
     public function packet(Request $request)
     {
         $mappings = SubjectFilters::mappings();

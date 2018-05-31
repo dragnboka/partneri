@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Kreiraj Predavanje') }}</div>
         
                 <div class="card-body">
-                    <form method="POST" action="{{ route('lecture.store') }}">
+                    <form method="POST" action="{{ route('lecture.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
@@ -86,7 +86,7 @@
             
                                     @if ($errors->has('last_name'))
                                         <span class="invalid-feedback">
-                                            <strong>{{ $errors->last('first_name') }}</strong>
+                                            <strong>{{ $errors->first('last_name') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -118,15 +118,23 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <select name="company" class="form-control mb-3">
-                            <option disabled selected>Select company</option>
-                            @foreach ($companies as $company)
-                                <option value="{{$company->id}}">{{$company->name}}</option>
-                            @endforeach
-                        </select>
+
+                        <div class="form-group">
+                            <select name="company" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select company</option>
+                                @foreach ($companies as $company)
+                                    <option {{ old('company') == $company->name ? 'selected' : '' }} value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
+                            </select>
                             
-                                                  
+                            
+                            @if ($errors->has('company'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('company') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                                                
                         <button type="submit" class="btn btn-primary">
                             {{ __('Kreiraj Predavanje') }}
                         </button>

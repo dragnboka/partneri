@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreAd;
+use Illuminate\Support\Facades\Storage;
 
 class AdController extends Controller
 {
@@ -15,7 +17,9 @@ class AdController extends Controller
      */
     public function index()
     {
-        //
+        $ads = Ad::with('company')->latest()->paginate(20);
+        
+        return view('ads.index', compact('ads'));
     }
 
     /**
@@ -36,7 +40,7 @@ class AdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAd $request)
     {
         $company = Company::findOrFail($request->company);
 
@@ -50,7 +54,14 @@ class AdController extends Controller
             $ad->job = $request->job;
         }
         if ($request->has('file') && !empty($request->file)) {
-            $ad->file = $request->file;
+            $ad->file = $request->file->getClientOriginalName();
+
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $name = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_FILENAME);
+            
+            Storage::disk('public')->putFileAs(
+                'ads/'.$company->name, $request->file('file'), $name.'.'.$extension
+            );
         }
 
         $company->ads()->save($ad);
@@ -66,7 +77,9 @@ class AdController extends Controller
      */
     public function show(Ad $ad)
     {
-        //
+        $ad = Ad::where('id', $ad->id)->with('company')->firstOrFail();
+
+        return view('ads.show', compact('ad'));
     }
 
     /**

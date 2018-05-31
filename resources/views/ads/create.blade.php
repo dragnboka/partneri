@@ -8,11 +8,11 @@
                 <div class="card-header">{{ __('Create Ad') }}</div>
         
                 <div class="card-body">
-                    <form method="POST" action="{{ route('ad.store') }}">
+                    <form method="POST" action="{{ route('ad.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">{{ __('Ime') }}</label>
+                            <label for="name" class="col-form-label">{{ __('Naslov') }}</label>
                             <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" >
     
                             @if ($errors->has('name'))
@@ -33,29 +33,56 @@
                             @endif
                         </div>
                         
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="practice" name="practice" value="1">
-                            <label class="custom-control-label" for="practice">Praksa</label>
-                        </div>
-                        
-
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input type="checkbox" class="custom-control-input" id="job" name="job"  value="1">
-                            <label class="custom-control-label" for="job">Posao</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input{{ $errors->has('practice') ? ' is-invalid' : '' }}" id="practice" name="practice" value="1" {{ old('practice') ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="practice">Praksa</label>
+                            </div>
+                            @if ($errors->has('practice'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('practice') }}</strong>
+                                </span>
+                            @endif
                         </div>
                         
                         <div class="form-group">
-                            <label for="file">Upload file</label>
-                            <input type="file" name="file" class="form-control-file" id="file">
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input{{ $errors->has('job') ? ' is-invalid' : '' }}" id="job" name="job"  value="1" {{ old('job') ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="job">Posao</label>
+                            </div>
+                            @if ($errors->has('job'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('job') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <select name="company" class="form-control mb-3">
-                            <option disabled selected>Select company</option>
-                            @foreach ($companies as $company)
-                                <option value="{{$company->id}}">{{$company->name}}</option>
-                            @endforeach
-                        </select>
-                           
+                        <div class="form-group">
+                            <label for="file">Upload file</label>
+                            <input type="file" name="file" class="form-control-file{{ $errors->has('file') ? ' is-invalid' : '' }}" id="file">
+
+                            @if ($errors->has('file'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('file') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <select name="company" class="form-control{{ $errors->has('company') ? ' is-invalid' : '' }} mb-3">
+                                <option disabled selected>Select company</option>
+                                @foreach ($companies as $company)
+                                    <option {{ old('company') == $company->name ? 'selected' : '' }} value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                            
+                            @if ($errors->has('company'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('company') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                         <button type="submit" class="btn btn-primary">
                             {{ __('Create ad') }}
                         </button>
